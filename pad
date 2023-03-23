@@ -1,0 +1,40 @@
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonScanOff"
+        app:layout_constraintVertical_bias="0.053"
+        tools:layout_editor_absoluteX="0dp"
+        tools:listitem="@layout/row_layout" />
+        
+        
+        
+/*
+        else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+        // discovery has finished, give a call to fetchUuidsWithSdp on first device in list.
+        if (!mDeviceList.isEmpty()) {
+        BluetoothDevice device = mDeviceList. //(0);
+        boolean result = device.fetchUuidsWithSdp();
+        }
+        } else if (BluetoothDevice.ACTION_UUID.equals(action)) {
+        // This is when we can be assured that fetchUuidsWithSdp has completed.
+        // So get the uuids and call fetchUuidsWithSdp on another device in list
+
+        BluetoothDevice deviceExtra = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+        Parcelable[] uuidExtra = intent.getParcelableArrayExtra(BluetoothDevice.EXTRA_UUID);
+        System.out.println("DeviceExtra address - " + deviceExtra.getAddress());
+        if (uuidExtra != null) {
+        for (Parcelable p : uuidExtra) {
+        System.out.println("uuidExtra - " + p);
+        }
+        } else {
+        System.out.println("uuidExtra is still null");
+        }
+        if (!mDeviceList.isEmpty()) {
+        BluetoothDevice device = mDeviceList.remove(0);
+        boolean result = device.fetchUuidsWithSdp();
+        }
+        }
+*/
