@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewStatus;
     private ListView mDevicesListView;
     private ArrayAdapter<String> mBTArrayAdapter;
+    java.util.HashMap<String, String> mDeviceList = new HashMap<String, String>();
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 BluetoothDevice remoteDevice;
                 remoteDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 short rssi = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE);
-                //showToast(context, "Discovered: " + remoteDevice.getName() + "  RSSI: " + rssi);
                 mBTArrayAdapter.add("Discovered: " + remoteDevice.getName() + "  RSSI: " + rssi);
                 mBTArrayAdapter.notifyDataSetChanged();
                 Log.e(getClass().getSimpleName(), "Name: " + remoteDevice.getName());
@@ -68,14 +68,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-    java.util.HashMap<String, String> mDeviceList = new HashMap<String, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textViewStatus = findViewById(R.id.textViewStatus);
-        mBTArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+        mBTArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_SHORT).show();
@@ -84,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
         }
         mDevicesListView = findViewById(R.id.devices_list_view);
         mDevicesListView.setAdapter(mBTArrayAdapter); // assign model to view
-        //registerReceiver(mReceiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
-        //mReceiver = new BtReceiver();
         registerDiscoveryBroadcastReceiver();
     }
 
@@ -109,13 +106,12 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
-                    // The user picked a contact.
-                    // The Intent's data Uri identifies which contact was selected.
                     Toast.makeText(MainActivity.this, "Bluetooth Enabled", Toast.LENGTH_SHORT).show();
                 } else
                     Toast.makeText(MainActivity.this, "Bluetooth Disabled", Toast.LENGTH_SHORT).show();
             });
 
+    @SuppressLint("MissingPermission")
     private void listDevices() {
         mDeviceList.clear();
         mBluetoothAdapter.startDiscovery();
